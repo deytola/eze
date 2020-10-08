@@ -51,7 +51,7 @@ This project is hosted on Heroku
 4. Launch postman and send a GET request to [localhost:3000](http://localhost:3000/)
 
 
-### API Endpoint Route 
+### API Endpoints 
 <table>
 <tr><th>HTTP VERB</th><th>ENDPOINT</th><th>TASK</th></tr>
 
