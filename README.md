@@ -1,9 +1,11 @@
 # Eze Backend
 
-A backend application with trade requests and auth features - developed using Node, Express and MongoDB.
+A backend trade request application with CRUD features - developed using Node, Express and MongoDB.
+
+[![Build Status](https://travis-ci.org/deytola/eze.svg?branch=master)](https://travis-ci.org/deytola/eze)
 
 
-### [Live Demo](http://ezetrade.herokuapp.com/ "Eze Trade")
+### [Live Demo](http://ezetrade.herokuapp.com/)
 
 #### What you need to run this code
 1. Node (12+)
@@ -13,8 +15,8 @@ A backend application with trade requests and auth features - developed using No
 ####  How to run this code
 1. Make sure MongoDB is running on your system
 2. Clone this repository
-3. Open command line in the cloned folder,
-   - To install dependencies, run ```  npm install  ```
-   - To run the application for development, run ```  nodemon exec  ```
+3. Open terminal in the cloned folder,
+   - To install dependencies, run ```  npm install  ``` on terminal
+   - To run the application, run ```  npm start  ``` on terminal
 4. Open [localhost:3000](http://localhost:3000/) in the browser
 ----
