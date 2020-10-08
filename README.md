@@ -51,7 +51,7 @@ This project is hosted on Heroku
 4. Launch postman and send a GET request to [localhost:3000](http://localhost:3000/)
 
 
-### API Endpoint Route 
+### API Endpoints 
 <table>
 <tr><th>HTTP VERB</th><th>ENDPOINT</th><th>TASK</th></tr>
 
@@ -71,7 +71,7 @@ This project is hosted on Heroku
 
 <tr><td>PUT</td> <td>api/buyrequests/:buyRequestId</td> <td> Update a single buy request by Id</td></tr> 
 
-<tr><td>PUT</td> <td>api/sellrequests/:buyRequestId</td> <td> Update a single buy request by Id</td></tr> 
+<tr><td>PUT</td> <td>api/sellrequests/:sellRequestId</td> <td> Update a single sell request by Id</td></tr> 
 
 <tr><td>DELETE</td> <td>api/buyrequests/:buyRequestId</td> <td> Delete a single buy request by Id</td></tr> 
 
