@@ -1,5 +1,4 @@
 const nodeExternals = require('webpack-node-externals');
-const WebpackShellPlugin = require('webpack-shell-plugin');
 const path = require('path');
 
 const CURRENT_WORKING_DIR = process.cwd();
@@ -16,10 +15,5 @@ const config = {
   node: {
     fs: 'empty',
   },
-  plugins: [
-    new WebpackShellPlugin({
-      onBuildExit: 'mocha --reporter spec ./dist/testBundle.js',
-    }),
-  ],
 };
 module.exports = config;
