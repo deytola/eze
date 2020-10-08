@@ -1,82 +1,45 @@
+/* eslint-disable no-underscore-dangle */
 import express from 'express';
-import path from 'path'
+import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import helmet from 'helmet';
-import Template from './../template'
 import compress from 'compression';
-import authRoutes from './routes/auth.routes';
-import userRoutes from './routes/user.routes';
+import morgan from 'morgan';
+import tradeRequestRoutes from './routes/traderequest.routes';
+import buyRequestRoutes from './routes/buyrequest.routes';
+import sellRequestRoutes from './routes/sellrequest.routes';
 
-// modules for server side rendering
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import MainRouter from './../client/MainRouter'
-import { StaticRouter } from 'react-router-dom'
-
-import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
-import theme from './../client/theme'
-//end
-
-
-//comment out before building for production
-import devBundle from './devBundle'
-
-const CURRENT_WORKING_DIR = process.cwd()
+const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 
-//comment out before building for production
-devBundle.compile(app)
-
-
+global.__basedir = path.join(__dirname, '/..');
+app.set('view engine', 'ejs');
+app.set('views', path.join(CURRENT_WORKING_DIR, 'server/views'));
+app.use(morgan('combined'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
-app.use(cors());
+app.use(cors({ optionsSuccessStatus: 200 }));
 
-app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
-
-app.use('/', authRoutes);
-app.use('/', userRoutes);
-
+app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
+app.use('/', buyRequestRoutes);
+app.use('/', sellRequestRoutes);
+app.use('/', tradeRequestRoutes);
 
 app.get('*', (req, res) => {
-    const sheets = new ServerStyleSheets()
-    const context = {}
-    const markup = ReactDOMServer.renderToString(
-      sheets.collect(
-            <StaticRouter location={req.url} context={context}>
-              <ThemeProvider theme={theme}>
-                <MainRouter />
-              </ThemeProvider>
-            </StaticRouter>
-          )
-      )
-      if (context.url) {
-        return res.redirect(303, context.url)
-      }
-      const css = sheets.toString()
-      res.status(200).send(Template({
-        markup: markup,
-        css: css
-      }))
-  })
+  res.render('pages/index');
+});
 
-
-app.use((err, req, res, next) => {
-    if(err.name === 'UnauthorizedError'){
-        res.status(401).json({
-            "error": `${err.name} : ${err.message}`
-        });
-    }else if(err){
-        res.status(400).json({
-            error : `${err.name} : ${err.message}`
-        });
-        console.log(err);
-    }
+app.use((err, req, res) => {
+  if (err) {
+    res.status(400).json({
+      error: `${err.name} : ${err.message}`,
+    });
+  }
 });
 
 export default app;
