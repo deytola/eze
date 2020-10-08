@@ -4,9 +4,9 @@
   "description": "A scalable server-side application",
   "scripts": {
     "development": "nodemon",
-    "build": "webpack --mode=production --progress --colors --config webpack-test.config.js && webpack --mode=production --config webpack.config.server.js",
+    "build": "webpack --mode=production --config webpack.config.server.js",
     "start": "NODE_ENV=production node ./dist/server.generated.js",
-    "test": "mocha ./dist/testBundle.js"
+    "test": "webpack --mode=production --progress --colors --config webpack-test.config.js && mocha --exit ./dist/testBundle.js"
   },
   "author": "Adetola Adebola",
   "license": "ISC",
